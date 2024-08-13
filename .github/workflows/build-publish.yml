@@ -63,7 +63,7 @@ jobs:
            jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
            echo "${{ env.ACCESS_TOKEN }}"
         
-           jf docker login "https://psemea.jfrog.io/" --username "testuser" --password "${{ env.ACCESS_TOKEN }}"
+           jf docker login "https://psemea.jfrog.io" --username "testuser" --password "${{ env.ACCESS_TOKEN }}"
          
            
        - name: Install Dependencies
