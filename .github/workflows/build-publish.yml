@@ -58,11 +58,6 @@ jobs:
      #    with:
      #      oidc-provider-name: ${{ env.OIDC_PROVIDER }}
 
-       - uses: docker/login-action@v1
-         with:
-              registry: psemea.jfrog.io/blr-td-virtual
-              username: testuser
-              password: ${{ env.ACCESS_TOKEN }}
        - name: Set CLI Config
          run: |
            jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
