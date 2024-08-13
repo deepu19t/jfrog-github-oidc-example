@@ -41,7 +41,7 @@ jobs:
           \"subject_token_type\": \"urn:ietf:params:oauth:token-type:id_token\"}" \
           | jq .access_token | tr -d '"')
           echo "ACCESS_TOKEN=${ACCESS_TOKEN}" >> $GITHUB_ENV 
-
+          docker login -udeepu19t https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}
   
        - name: Setup jfrog cli
          uses: jfrog/setup-jfrog-cli@v3
@@ -63,7 +63,7 @@ jobs:
            jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
            echo "${{ env.ACCESS_TOKEN }}"
         
-           docker login -udeepu19t https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}
+           
          
            
        - name: Install Dependencies
