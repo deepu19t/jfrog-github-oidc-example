@@ -43,15 +43,15 @@ jobs:
           \"subject_token_type\": \"urn:ietf:params:oauth:token-type:id_token\"}" \
           | jq .access_token | tr -d '"')
           echo "ACCESS_TOKEN=${ACCESS_TOKEN}" >> $GITHUB_ENV 
-          echo "${{ env.ACCESS_TOKEN }}"
-          
-          docker login 'https://psemea.jfrog.io/' --username testuser --password "${{ env.ACCESS_TOKEN }}"
+
   
        - name: Setup jfrog cli
          uses: jfrog/setup-jfrog-cli@v3
          env:
           JF_URL: ${{ secrets.JF_URL }}
           JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+
+
    
      #  - name: Setup JFrog CLI
      #    uses: jfrog/setup-jfrog-cli@v3
@@ -63,11 +63,14 @@ jobs:
        - name: Set CLI Config
          run: |
            jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
-         
+           echo "${{ env.ACCESS_TOKEN }}"
+        
+           docker login 'https://psemea.jfrog.io/' --username testuser --password "${{ env.ACCESS_TOKEN }}"
          
            
        - name: Install Dependencies
          run: jf npm install
+         
            
        - name: Run tests
          run: npm test
